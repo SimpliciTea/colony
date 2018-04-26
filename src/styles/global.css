@@ -1,0 +1,133 @@
+
+/* AVATAR STYLES */
+.avatar-container {
+	margin: 0px auto;
+	padding: 0px;
+	width: 74px;
+	text-align: center;
+	position: relative;
+}
+
+.avatar {
+	height: 60px;
+	width: 60px;
+	position: relative;
+	border-radius: 50%;
+	margin: 6px;
+	border: 1px solid transparent;
+	cursor: pointer;
+}
+
+.avatar img {
+	height: 60px;
+	width: 60px;
+	border-radius: 50%;
+}
+
+.avatar:hover,
+.avatar:focus {
+	border-color: rgb(155, 160, 163);
+}
+
+
+/* PICKER-CONTAINER STYLES */
+.picker-container {
+	position: absolute;
+	width: 296px;
+	padding: 14px 7px 7px;
+	left: -117px;
+	top: calc(100% + 8px);
+	transform: scale(1);
+	transition: transform 0.5s ease-in-out;
+	background-color: rgb(44, 48, 51);
+	border-radius: 2px;
+	box-shadow: 0px 0px 10px 2px rgb(102, 102, 102); 
+}
+
+.picker-container--mounted {
+	transform: scale(0.5);
+}
+
+.picker-container::before {
+	display: block;
+	content: "";
+	position: absolute;
+	top: -8px;
+	left: calc(50% - 9px);
+	width: 0px;
+	height: 0px;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 8px solid rgb(44, 48, 51);
+}
+
+.picker-container__header {
+	color: rgb(249, 249, 249);
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16px;
+	padding: 0px 0px 10px;
+	margin: 0px;
+}
+
+.picker-container__avatar-list {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+
+
+
+.picker-container .avatar {
+	margin: 4px;
+	border: 3px solid transparent;
+}
+
+.picker-container .avatar::after {
+	display: block;
+	content: "";
+	position: absolute;
+	top: -3px;
+	left: -3px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: 3px solid transparent;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.picker-container .avatar.avatar--active {
+	border-color: rgb(122, 161, 178); 
+}
+
+.picker-container .avatar:hover {
+	border-color: rgb(155, 160, 163);
+}
+
+.picker-container .avatar:hover::after {
+	background-color: rgba(122, 161, 178, 0.2);
+}
+
+.picker-container .avatar-wrapper {
+	position: relative;
+}
+
+.picker-container .avatar.avatar--requesting,
+.picker-container .avatar.avatar--requesting:hover {
+	border-color: transparent; 
+}
+
+.picker-container .avatar.avatar--requesting::after {
+	border: 3px solid rgb(122, 161, 178);
+	border-right-color: transparent;
+	animation: rotate 1s linear 0s infinite;
+}
+
+
+/* ANIMATIONS */
+@keyframes rotate {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(359deg); } 
+}
