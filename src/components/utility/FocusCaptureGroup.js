@@ -34,12 +34,20 @@ class FocusCaptureGroup extends React.Component {
 		}
 	}
 
+	handleOnKeyUp = (e) => {
+		if (e.key === 'Escape') {
+			e.preventDefault();
+			document.activeElement.blur();
+		}
+	}
+
 	render() {
 		return (
 			<div className='capture-group' 
 					 onBlur={this.handleOnBlur}
 					 ref={(div) => { this.container = div; }}
-			 		 onFocus={this.handleOnFocus}>
+			 		 onFocus={this.handleOnFocus}
+			 		 onKeyUp={this.handleOnKeyUp}>
 			 	{this.props.children}
 			</div>
 		)
