@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Avatar from './Avatar';
+import FocusCaptureGroup from '../utility/FocusCaptureGroup';
 
 const styles = {
 	scaling: {
@@ -43,6 +44,7 @@ class PickerContainer extends React.Component {
 
 	componentDidMount = () => {
 		this.triggerTransitionTo('overscaled');
+		this.container.focus();
 	}
 
 	componentWillReceiveProps = (nextProps) => {
@@ -71,57 +73,35 @@ class PickerContainer extends React.Component {
 
 	render = () => {
 		return (
-					<div className={'picker-container'} key={'picker'}
-							 style={styles.scaling[this.state.transitionState]}
-							 onTransitionEnd={this.handleOnTransitionEnd} >
-						<h2 className="picker-container__header">Choose your avatar</h2>
-						<ul className="picker-container__avatar-list">
-							{Object.keys(this.props.avatars).map(id => {
-								let avatar = this.props.avatars[id];
-								let isActive = avatar.id === this.props.activeAvatarId;
-								let isRequested = avatar.id === this.props.requestedAvatarId;
-								
-								return ( 
-									<li key={avatar.id}>
-										<Avatar {...avatar}
-														handleOnClick={this.props.handleSelectActiveAvatar}
-														isActive={isActive}
-														isRequested={isRequested} />
-										{isRequested && <div className="avatar-spinner"></div>}
-									</li>
-								)
-							})}
-						</ul>
-					</div>
-
+			<FocusCaptureGroup handleOnBlur={this.props.scheduleCloseSelf}>
+				<div className={'picker-container'} key={'picker'}
+						 ref={div => { this.container = div; }}
+						 tabIndex='-1'
+						 style={styles.scaling[this.state.transitionState]}
+						 onTransitionEnd={this.handleOnTransitionEnd} >
+					<h2 className="picker-container__header">Choose your avatar</h2>
+					<ul className="picker-container__avatar-list">
+						{Object.keys(this.props.avatars).map(id => {
+							let avatar = this.props.avatars[id];
+							let isActive = avatar.id === this.props.activeAvatarId;
+							let isRequested = avatar.id === this.props.requestedAvatarId;
+							
+							return ( 
+								<li key={avatar.id}>
+									<Avatar {...avatar}
+													handleOnClick={this.props.handleSelectActiveAvatar}
+													isActive={isActive}
+													isRequested={isRequested} />
+									{isRequested && <div className="avatar-spinner"></div>}
+								</li>
+							)
+						})}
+					</ul>
+				</div>
+			</FocusCaptureGroup>
 		)
 	}
 }
 
-
-// class Animated extends React.Component {
-// 	render() {
-// 		return (
-// 			<Transition 
-// 				from={{ transform: 'scale(0.5)' }} 
-// 				enter={{ transform: 'scale(1)' }}
-// 				leave={{ transform: 'scale(0.5)' }}>
-// 				{styles => <PickerContainer style={styles} {...this.props} /> }
-// 			</Transition>
-// 		)
-// 	}
-// }
-
-// 	overbounce = async next => {
-// 		await next(Transition, {
-// 			from: { transform: 'scale(0.5)' },
-// 			to: { transform: 'scale(1.5)' }
-// 		});
-// 
-// 		await next(Spring, {
-// 			from: { transform: 'scale(1.5)' },
-// 			to: { transform: 'scale(1)' }
-// 		})
-// 	}
 
 export default PickerContainer;

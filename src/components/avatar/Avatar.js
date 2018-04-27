@@ -11,9 +11,9 @@ const Avatar = (props) => {
 		? () => props.handleOnClick(props.id)
 		: f => f;
 
-	return <div className={classList.join(' ')} onClick={() => handleOnClick()}>
+	return <button className={classList.join(' ')} onClick={() => handleOnClick()}>
 					 <img src={props.src} alt='avatar' />
-				 </div>
+				 </button>
 }
 
 Avatar.propTypes = {
