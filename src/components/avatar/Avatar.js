@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 const Avatar = (props) => {
-	let classList = ['avatar'];
+	const classList = ['avatar'];
 	props.isActive && classList.push('avatar--active');
 	props.isRequested && classList.push('avatar--requesting');
 

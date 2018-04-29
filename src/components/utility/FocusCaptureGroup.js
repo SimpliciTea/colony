@@ -1,7 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 class FocusCaptureGroup extends React.Component {
+	static propTypes = {
+		handleOnBlur: PropTypes.func.isRequired
+	}
+
 	timeoutId;
 
 	constructor() {
