@@ -16,30 +16,34 @@ class FocusCaptureGroup extends React.Component {
 			isCapturingFocus: false,
 			activeElement: this.container
 		}
+
+		this.handleOnBlur = this.handleOnBlur.bind(this);
+		this.handleOnFocus = this.handleOnFocus.bind(this);
+		this.handleOnKeyUp = this.handleOnKeyUp.bind(this);
 	}
 
-	handleOnBlur = (e) => {
+	handleOnBlur() {
 		this.timeoutId = setTimeout(() => {
-			if (this.state.isManagingFocus && document.activeElement !== this.state.activeElement) {
+			if (this.state.isCapturingFocus && document.activeElement !== this.state.activeElement) {
 				this.setState({
-					isManagingFocus: false
+					isCapturingFocus: false
 				}, this.props.handleOnBlur);
 			}
 		}, 0);
 	}
 
-	handleOnFocus = () => {
+	handleOnFocus() {
 		clearTimeout(this.timeoutId);
 
-		if (!this.state.isManagingFocus) {
+		if (!this.state.isCapturingFocus) {
 			this.setState({
-				isManagingFocus: true,
+				isCapturingFocus: true,
 				activeElement: document.activeElement
 			});
 		}
 	}
 
-	handleOnKeyUp = (e) => {
+	handleOnKeyUp(e) {
 		if (e.key === 'Escape') {
 			e.preventDefault();
 			document.activeElement.blur();
